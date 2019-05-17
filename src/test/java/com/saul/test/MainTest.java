@@ -22,4 +22,15 @@ public class MainTest {
 			System.out.println(name);
 		}
 	}
+	
+	//测试注解 ComponentScan
+	@Test
+	public void test2(){
+		@SuppressWarnings("resource")
+		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig.class);
+		String[] names  = applicationContext.getBeanDefinitionNames();
+		for (String name : names) {
+			System.out.println(name);
+		}
+	}
 }
