@@ -4,11 +4,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.stereotype.Controller;
 import org.springframework.context.annotation.ComponentScan.Filter;
 
 import com.saul.bean.Person;
-import com.saul.service.PersonService;
 /**
  * 配置类: 相当于原来的配置文件（xml文件）
  * 

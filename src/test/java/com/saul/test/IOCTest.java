@@ -5,8 +5,9 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.saul.bean.Person;
 import com.saul.config.MainConfig;
+import com.saul.config.MainConfig2;
 
-public class MainTest {
+public class IOCTest {
 	
 	//测试注解 Configuration and Bean
 	@Test
@@ -32,5 +33,15 @@ public class MainTest {
 		for (String name : names) {
 			System.out.println(name);
 		}
+	}
+	
+	@Test
+	public void test3(){
+		@SuppressWarnings("resource")
+		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
+		
+		Object person1 = applicationContext.getBean("person");
+		Object person2 = applicationContext.getBean("person");
+		System.out.println(person1 == person2);
 	}
 }
