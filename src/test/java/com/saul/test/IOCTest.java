@@ -2,6 +2,7 @@ package com.saul.test;
 
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
 
 import com.saul.bean.Person;
 import com.saul.config.MainConfig;
@@ -35,6 +36,7 @@ public class IOCTest {
 		}
 	}
 	
+	//测试 Scope("prototype")
 	@Test
 	public void test3(){
 		@SuppressWarnings("resource")
@@ -44,4 +46,19 @@ public class IOCTest {
 		Object person2 = applicationContext.getBean("person");
 		System.out.println(person1 == person2);
 	}
+	
+	//测试 Scope("prototype")
+		@Test
+		public void test4(){
+			@SuppressWarnings("resource")
+			AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
+			ConfigurableEnvironment environment = applicationContext.getEnvironment();
+			//动态获取环境变量的值
+			String property = environment.getProperty("os.name");
+			System.out.println(property);
+			String[] names  = applicationContext.getBeanDefinitionNames();
+			for (String name : names) {
+				System.out.println(name);
+			}
+		}
 }

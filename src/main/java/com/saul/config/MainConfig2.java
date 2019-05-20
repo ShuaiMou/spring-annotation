@@ -2,11 +2,14 @@ package com.saul.config;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
 import com.saul.bean.Person;
+import com.saul.condition.LinuxCondition;
+import com.saul.condition.MacCondition;
 
 @Configuration
 public class MainConfig2 {
@@ -31,4 +34,23 @@ public class MainConfig2 {
 	public Person person(){
 		return new Person("Joey",25);
 	}
+	
+	/**
+	 * @Conditional({condition}): 按照一定条件进行判断，满足条件给容器注册Bean
+	 * 
+	 * 如果是mac os，给容器注册("Bill")
+	 * 如果是linux，给容器注册("linus")
+	 */
+	@Conditional({MacCondition.class})
+	@Bean("bill")
+	public Person person01(){
+		return new Person("Bill gate", 62);
+	}
+	
+	@Conditional({LinuxCondition.class})
+	@Bean("linus")
+	public Person person02(){
+		return new Person("linus", 45);
+	}
+	
 }
