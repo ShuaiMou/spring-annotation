@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
+import com.saul.bean.ColorFactoryBean;
 import com.saul.bean.Person;
 import com.saul.config.MainConfig;
 import com.saul.config.MainConfig2;
@@ -48,17 +49,48 @@ public class IOCTest {
 	}
 	
 	//测试 Scope("prototype")
+	@Test
+	public void test4(){
+		@SuppressWarnings("resource")
+		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
+		ConfigurableEnvironment environment = applicationContext.getEnvironment();
+		//动态获取环境变量的值
+		String property = environment.getProperty("os.name");
+		System.out.println(property);
+		String[] names  = applicationContext.getBeanDefinitionNames();
+		for (String name : names) {
+			System.out.println(name);
+		}
+	}
+		
+		//测试 @Import
 		@Test
-		public void test4(){
+		public void test5(){
 			@SuppressWarnings("resource")
 			AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
-			ConfigurableEnvironment environment = applicationContext.getEnvironment();
-			//动态获取环境变量的值
-			String property = environment.getProperty("os.name");
-			System.out.println(property);
 			String[] names  = applicationContext.getBeanDefinitionNames();
 			for (String name : names) {
 				System.out.println(name);
 			}
+		}
+		
+		//测试 @FactoryBean
+		@Test
+		public void test6() throws Exception{
+			@SuppressWarnings("resource")
+			AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
+		    String[] names  = applicationContext.getBeanDefinitionNames();
+			for (String name : names) {
+				System.out.println(name);
+			}
+			Object bean = applicationContext.getBean("colorFactoryBean");
+			Object bean1 = applicationContext.getBean("colorFactoryBean");
+			System.out.println(bean.getClass());
+			System.out.println(bean == bean1);
+			
+			ColorFactoryBean bean2 = (ColorFactoryBean) applicationContext.getBean("&colorFactoryBean");
+			System.out.println(bean2.getClass());
+			Object bean3 = bean2.getObject();
+			System.out.println(bean == bean3);
 		}
 }
