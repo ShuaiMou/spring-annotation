@@ -19,7 +19,8 @@ public class IOCTest_LifeCycle {
 		System.out.println("容器销毁完成。。。");
 	}
 	
-	@Test
+	//测试其他三种初始化销毁方法定义
+	@Test 
 	public void test2(){
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MainConfigOfLifeCycle.class);
 		System.out.println("容器创建完成。。。");
